@@ -1,0 +1,25 @@
+[project]
+name = "system-one-models"
+version = "0.1.0"
+description = "Python models and Jupyter notebooks for System One."
+readme = "README.md"
+authors = [
+    { name = "Scott Wied", email = "saw@swied.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "huggingface-hub>=1.33.0",
+    "laya>=0.3.27",
+    "typesafe-sdk>=0.7.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.20,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+    "jupyterlab>=4.6.4",
+    "python-dotenv>=1.2.4",
+]
