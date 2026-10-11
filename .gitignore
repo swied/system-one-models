@@ -225,3 +225,6 @@ week_*/runs/**
 !week_*/runs/**/run-summary.md
 week_*/results/
 .venv-*/
+
+# Reproducible generated week 3 datasets
+week_03/data/

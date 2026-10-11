@@ -7,7 +7,7 @@ with one shared Python package and uv environment.
 
 - [Week 1](week_01/README.md): Laya setup, inference, head training, and calibration.
 - [Week 2](week_02/README.md): model quickstarts, shared scenarios, and bakeoff results.
-- [Week 3](week_03/README.md): workspace for the next exercises.
+- [Week 3](week_03/README.md): Laya ticket-routing fine-tuning, calibration, and frozen-test evaluation.
 
 The setup below applies to all weeks. The model comparison instructions and
 metrics describe the week 2 bakeoff.
@@ -219,8 +219,8 @@ week_02/
     README.md                  Week 2 workflow and results links
     notebooks/                 Bakeoff, model quickstarts, GPU exploration
     docs/                      Learning plan and real-model results
-week_03/                       Next week's exercises
-    README.md                  Starting point for the new week
+week_03/                       Ticket-routing fine-tuning exercises
+    README.md                  Dataset, training, calibration, and evaluation commands
 src/system_one_models/         Shared adapters, scoring, prompts, py.typed
 tests/                         Shared offline unittest regression checks
 AGENTS.md                      Repository guidance for all weeks
