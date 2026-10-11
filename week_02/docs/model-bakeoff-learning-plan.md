@@ -27,10 +27,11 @@ runs locally), and **D1** (Liquid's hosted decision model).
 
 ## Friday Oct 2 — prep evening (~1 hour)
 
-**1. Python environment** (this repository targets Python 3.13)
+**1. Python environment** (this repository targets Python 3.13). Run these
+commands from the repository root; this week's notebooks live under `week_02/`.
 ```bash
 uv sync --locked
-uv run jupyter lab notebooks/
+uv run jupyter lab week_02/notebooks/
 ```
 
 **2. Get a Jev API key.** Sign up at typesafe.ai — the waitlist was dropped Sep 20, and
@@ -42,7 +43,7 @@ export TYPESAFE_API_KEY="..."
 
 **3. Prepare D1 access.** Save `LIQUID_API_KEY` in
 `~/.config/liquid/secrets.env`, following the README credential instructions.
-Run `notebooks/quickstart-d1.ipynb` to check hosted inference.
+Run `week_02/notebooks/quickstart-d1.ipynb` to check hosted inference.
 
 **4. Smoke test Laya** (should answer in well under a second on CPU):
 ```python
@@ -58,7 +59,7 @@ result = router.predict(
 print(result)
 ```
 
-**5. Check the bakeoff offline.** Open `notebooks/model-bakeoff.ipynb`,
+**5. Check the bakeoff offline.** Open `week_02/notebooks/model-bakeoff.ipynb`,
 set `MOCK = True`, and run all cells before attempting real inference.
 
 ---
@@ -143,9 +144,9 @@ production decision automation.
 
 ### Morning: run the open weights (~2 hrs)
 
-Run `notebooks/quickstart-laya.ipynb` and inspect the local Router response.
+Run `week_02/notebooks/quickstart-laya.ipynb` and inspect the local Router response.
 Record the hardware used, weight-loading time, and inference latency separately.
-Then run `notebooks/quickstart-d1.ipynb` and compare its hosted response with Jev.
+Then run `week_02/notebooks/quickstart-d1.ipynb` and compare its hosted response with Jev.
 
 Compare the practical tradeoffs:
 - Local Laya inference versus hosted Jev and D1 requests.

@@ -20,7 +20,7 @@ There were 13 questions asking it to choose an option, 14 asking for a yes/no
 judgment, and six asking for a rating. Examples included routing a support
 request, recognizing a suspicious email, assessing urgency, and deciding whether
 a proposed action needed review. The expected answers are recorded in
-[prompts.json](../src/system_one_models/prompts.json).
+[prompts.json](../../src/system_one_models/prompts.json).
 
 This is useful because many product features need a small decision rather than
 a paragraph of generated text. A support tool might need a team name and an

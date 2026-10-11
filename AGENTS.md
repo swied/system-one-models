@@ -2,9 +2,14 @@
 
 ## Purpose & Project Structure
 
-This repository explores typed decision models and compares Jev, Liquid D1,
-and local Laya on shared labeled scenarios. Keep documentation focused on the
-models, notebook workflows, and interpretation of benchmark results.
+This repository consolidates weekly explorations of System One (Jev-like)
+models. Each week lives in a zero-padded `week_NN/` folder: `week_01/` contains
+Laya inference, fine-tuning, calibration, datasets, and research guides;
+`week_02/` contains the Jev, Liquid D1, and local Laya comparison; `week_03/`
+is the next exploration. Keep week-specific scripts, notebooks, data, and
+documentation together. Add a README for each new week, link it from the root
+README, and keep reusable code, tests, and dependency metadata at the root.
+Do not move prior weeks when starting a new one.
 
 Reusable Python code lives in `src/system_one_models/`; import it as
 `system_one_models`. The distribution name is `system-one-models`.
@@ -12,12 +17,12 @@ Reusable Python code lives in `src/system_one_models/`; import it as
 `run_benchmark`, and `BenchmarkResult`, plus model adapters and scoring helpers.
 `prompts.json` holds the benchmark scenarios. Preserve `py.typed`.
 
-`notebooks/model-bakeoff.ipynb` runs the comparison and exports reports. The
+`week_02/notebooks/model-bakeoff.ipynb` runs the comparison and exports reports. The
 quickstarts are `quickstart-jev.ipynb`, `quickstart-d1.ipynb`, and
 `quickstart-laya.ipynb`. `gpu-test.ipynb` contains hardware exploration.
-Planning documentation lives in `docs/model-bakeoff-learning-plan.md`. The product-facing
+Planning documentation lives in `week_02/docs/model-bakeoff-learning-plan.md`. The product-facing
 interpretation of the saved real-model bakeoff lives in
-`docs/model-bakeoff-results.md`. Offline regression tests live in `tests/`.
+`week_02/docs/model-bakeoff-results.md`. Offline regression tests live in `tests/`.
 Dependencies are declared in `pyproject.toml` and resolved in `uv.lock`.
 
 ## Build, Test, and Development Commands
@@ -27,8 +32,9 @@ Run commands from the repository root:
 - `uv sync --locked`: install the locked environment and editable package.
 - `uv run python -m ipykernel install --user --name system-one-models --display-name "Python (system-one-models)"`:
   register the notebook kernel; repeat after moving or recreating the environment.
-- `uv run jupyter lab notebooks/`: start the notebook interface.
-- `uv run python -c "import system_one_models; print(system_one_models.hello())"`:
+- `uv run jupyter lab .`: browse notebooks across all weeks.
+- `uv run jupyter lab week_02/notebooks/`: open the week 2 comparison directly.
+- `uv run python -c "import system_one_models; print(system_one_models.__file__)"`:
   check the package import.
 - `uv run python -m unittest discover -s tests`: run offline regression checks.
 - `uv build`: create wheel and source distributions in `dist/`.
@@ -37,6 +43,23 @@ Use `uv add <package>` for runtime dependencies and `uv add --dev <package>`
 for development dependencies; commit both metadata and lockfile changes.
 Avoid persistent dependency changes through notebook `%pip` or ad hoc pip
 commands. Python development targets 3.13; package metadata requires >=3.13.
+
+## Weekly Paths and Environments
+
+Use the single root `pyproject.toml`, `uv.lock`, and `.venv` for all weeks.
+The editable package installation supports imports from nested notebook
+directories without `sys.path` changes. Load shared prompts through
+`load_prompts()`, which resolves the package resource independently of the
+working directory. Resolve new week-local notebook paths explicitly; do not
+assume the kernel starts in the repository root.
+
+Week 1 CLI file arguments resolve against the caller's working directory.
+From the root, use `uv run python week_01/<script>.py` with `week_01/data/`
+and `week_01/runs/` paths. To follow guide examples with `data/` and `runs/`,
+first `cd week_01`, then use `uv run --project .. python <script>.py`.
+SciPy is a shared runtime dependency for the week 1 calibration script.
+Keep historical run commands and environments identified as historical.
+PDFs are archived reference material; current paths belong in Markdown.
 
 ## Model & Benchmark Conventions
 
@@ -76,9 +99,9 @@ numbers mean for customer experience, mistakes, human review, response time,
 and operating costs. Define technical terms when needed, and connect model
 comparisons to specific product decisions.
 
-Ground measurements in the saved outputs of `notebooks/model-bakeoff.ipynb`
+Ground measurements in the saved outputs of `week_02/notebooks/model-bakeoff.ipynb`
 and question counts in `prompts.json`. Check whether the run used real models
-or mocks before interpreting it. When updating `docs/model-bakeoff-results.md`,
+or mocks before interpreting it. When updating `week_02/docs/model-bakeoff-results.md`,
 recheck its numbers and conclusions against the run it describes; do not treat
 the current ranking as a permanent property of the models.
 

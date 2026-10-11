@@ -1,7 +1,7 @@
 """Notebook-friendly decision model adapters and benchmark scoring.
 
 Importing this module never initializes clients or downloads model weights.
-See notebooks/model-bakeoff.ipynb for an executable comparison.
+See week_02/notebooks/model-bakeoff.ipynb for an executable comparison.
 """
 
 import csv

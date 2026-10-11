@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Weekly generated checkpoints and reports (keep reviewed run summaries)
+week_*/runs/**
+!week_*/runs/**/
+!week_*/runs/**/run-summary.md
+week_*/results/
+.venv-*/

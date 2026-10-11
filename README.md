@@ -1,9 +1,16 @@
 # System One Models
 
-Explore typed decision models from Jupyter notebooks and compare their answers
-on a shared set of labeled scenarios. This repository provides working model
-quickstarts, reusable Python adapters, and a bakeoff that measures accuracy,
-score quality, calibration, and latency.
+Explore System One (Jev-like) models week by week. This repository combines
+Laya inference and fine-tuning exercises with a comparison of Jev, Liquid D1,
+and local Laya. Each exploration lives in a zero-padded `week_NN/` folder,
+with one shared Python package and uv environment.
+
+- [Week 1](week_01/README.md): Laya setup, inference, head training, and calibration.
+- [Week 2](week_02/README.md): model quickstarts, shared scenarios, and bakeoff results.
+- [Week 3](week_03/README.md): workspace for the next exercises.
+
+The setup below applies to all weeks. The model comparison instructions and
+metrics describe the week 2 bakeoff.
 
 The questions cover tasks such as routing support tickets, identifying phishing,
 assessing urgency, and deciding whether an action needs human review. Each model
@@ -13,9 +20,9 @@ receives the same state and question definitions so its results can be compared.
 
 | Backend | How it runs | Credentials | Quickstart |
 | --- | --- | --- | --- |
-| `jev` | Hosted TypeSafe API through `typesafe-sdk` | `TYPESAFE_API_KEY` | [quickstart-jev.ipynb](notebooks/quickstart-jev.ipynb) |
-| `d1` | Hosted Liquid API through `typesafe-sdk`; adapter defaults to `d1:free` | `LIQUID_API_KEY` | [quickstart-d1.ipynb](notebooks/quickstart-d1.ipynb) |
-| `laya` | Local inference through `laya.Router`; initialization may download weights | `HF_TOKEN` when needed for model access | [quickstart-laya.ipynb](notebooks/quickstart-laya.ipynb) |
+| `jev` | Hosted TypeSafe API through `typesafe-sdk` | `TYPESAFE_API_KEY` | [quickstart-jev.ipynb](week_02/notebooks/quickstart-jev.ipynb) |
+| `d1` | Hosted Liquid API through `typesafe-sdk`; adapter defaults to `d1:free` | `LIQUID_API_KEY` | [quickstart-d1.ipynb](week_02/notebooks/quickstart-d1.ipynb) |
+| `laya` | Local inference through `laya.Router`; initialization may download weights | `HF_TOKEN` when needed for model access | [quickstart-laya.ipynb](week_02/notebooks/quickstart-laya.ipynb) |
 
 All three adapters accept these question types:
 
@@ -37,7 +44,7 @@ commands from the repository root:
 ```bash
 uv sync --locked
 uv run python -m ipykernel install --user --name system-one-models --display-name "Python (system-one-models)"
-uv run jupyter lab notebooks/
+uv run jupyter lab .
 ```
 
 `uv sync --locked` creates `.venv`, installs the locked runtime and development
@@ -45,7 +52,7 @@ dependencies, and installs this package in editable mode. JupyterLab, ipykernel,
 and python-dotenv are included in the development dependencies. You do not need
 to activate the environment or install the package separately.
 
-Open [model-bakeoff.ipynb](notebooks/model-bakeoff.ipynb) and select **Python
+Open [model-bakeoff.ipynb](week_02/notebooks/model-bakeoff.ipynb) and select **Python
 (system-one-models)** as the kernel. For an offline first run, set
 `MOCK = True` in the configuration cell and run all cells in order. This exercises
 the complete comparison and report workflow with deterministic simulated answers.
@@ -202,23 +209,31 @@ match a rubric description in the ordered `criteria` list.
 ## Repository layout
 
 ```text
-src/system_one_models/
-    decision_benchmark.py       Model adapters, scoring, and report exports
-    prompts.json                Shared labeled scenarios
-    __init__.py                 Package entry point
-    py.typed                    Typed-package marker
-notebooks/
-    model-bakeoff.ipynb          Model comparison and report workflow
-    quickstart-jev.ipynb         Hosted Jev example
-    quickstart-d1.ipynb        Hosted Liquid D1 example
-    quickstart-laya.ipynb        Local Laya example
-    gpu-test.ipynb              Hardware exploration
-tests/                         Offline unittest regression checks
-docs/model-bakeoff-learning-plan.md           Exploration plan
-pyproject.toml                  Dependencies and package metadata
-uv.lock                         Locked dependency versions
-.python-version                 Development Python version
+week_01/                       Laya inference, training, calibration, research
+    README.md                  Week 1 workflow and commands
+    *.py                       Standalone Laya exercises
+    smoke-test-laya.ipynb       Inference and GPU checks
+    data/                      Synthetic training and evaluation splits
+    runs/laya-head-v1/          Saved run summary
+week_02/
+    README.md                  Week 2 workflow and results links
+    notebooks/                 Bakeoff, model quickstarts, GPU exploration
+    docs/                      Learning plan and real-model results
+week_03/                       Next week's exercises
+    README.md                  Starting point for the new week
+src/system_one_models/         Shared adapters, scoring, prompts, py.typed
+tests/                         Shared offline unittest regression checks
+AGENTS.md                      Repository guidance for all weeks
+pyproject.toml                 Shared dependencies and package metadata
+uv.lock                        Locked dependency versions
+.python-version                Development Python version
 ```
+
+Create future folders as `week_04/`, `week_05/`, and so on. Add a weekly README
+and keep that week's notebooks, scripts, data, and notes inside it. Promote
+reusable code into `src/system_one_models/` and regression checks into `tests/`.
+Use the root environment and kernel for every week; run dependency commands
+from the repository root. See the weekly READMEs for working-directory details.
 
 ## Development and validation
 
@@ -232,7 +247,7 @@ uv remove <package>              # Remove a runtime dependency.
 uv remove --dev <package>        # Remove a development dependency.
 uv lock --upgrade-package <package>  # Intentionally upgrade one dependency.
 uv sync --locked
-uv run python -c "import system_one_models; print(system_one_models.hello())"
+uv run python -c "import system_one_models; print(system_one_models.__file__)"
 uv run python -m unittest discover -s tests
 uv build
 ```
